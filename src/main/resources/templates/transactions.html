@@ -1,0 +1,37 @@
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<title>Online Bank</title>
+<link rel="stylesheet" href="/css/transactions.css" />
+</head>
+<body>
+	<h2>Transaction History</h2>
+
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Date</th>
+			<th>Retailer</th>
+			<th>Funds In</th>
+			<th>Funds Out</th>
+		</tr>
+		<!-- These 4 rows below are for demonstration purposes only
+			     You will need to edit the code below in order to make
+			     it dynamically list ALL 100 transactions from the Repo -->
+		<tr th:each="txn : ${transactions}">
+			<!-- for every transaction in the List<Transaction> -->
+			<td><a th:href="@{/transactions/{transactionId}(transactionId=${txn.id})}"
+				th:text="${txn.id}"></a></td>
+			<td th:text="${txn.date}"></td>
+			<td th:text="${txn.retailer}"></td>
+			<!-- Ternary Operator for if the transaction type is C or D (idk why but that is what prints out)
+			
+			If the type is D, funds in is '-', if not, funds in is txn.amount -->
+			<td th:text="${txn.type == 'D' ? '' : txn.amount}"></td>
+			<!-- If the type is C, funds out is '-', if not, funds out is txn.amount -->
+			<td th:text="${txn.type == 'C' ? '' : txn.amount}"></td>
+
+		</tr>
+
+	</table>
+</body>
+</html>
